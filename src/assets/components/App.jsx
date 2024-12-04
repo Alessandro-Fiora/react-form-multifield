@@ -1,4 +1,11 @@
 import { useState } from "react";
+const defaultFormData = {
+  title: "",
+  content: "",
+  author: "",
+  category: "",
+  published: false,
+};
 
 function App() {
   const [articles, setArticles] = useState([
@@ -19,31 +26,28 @@ function App() {
     },
   ]);
 
-  const [newArticleTitle, setnewArticleTitle] = useState("");
-  const [newArticleAuthor, setnewArticleAuthor] = useState("");
-  const [newArticleStatus, setnewArticleStatus] = useState("Draft");
+  const [formData, setFormData] = useState(defaultFormData);
 
-  const handleTitleInputChange = (e) => {
-    setnewArticleTitle(e.target.value);
-  };
-  const handleAuthorInputChange = (e) => {
-    setnewArticleAuthor(e.target.value);
-  };
-  const handleSelectChange = (e) => {
-    setnewArticleStatus(e.target.value);
+  const handleFormData = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     const newArticles = [
       ...articles,
       {
-        title: newArticleTitle,
-        author: newArticleAuthor,
-        status: newArticleStatus,
+        title: formData.title,
+        author: formData.author,
+        // status: newArticleStatus,
       },
     ];
     setArticles(newArticles);
+    setFormData(defaultFormData);
   };
 
   const handleDeleteButtonClick = (index) => {
@@ -62,33 +66,36 @@ function App() {
           </label>
           <input
             id="title-input"
-            onChange={handleTitleInputChange}
-            value={newArticleTitle}
+            onChange={handleFormData}
+            value={formData.title}
             className="form-control my-3"
             type="text"
+            name="title"
           />
           <label htmlFor="author-input" className="form-label">
             Inserisci l'autore dell'articolo:
           </label>
           <input
             id="author-input"
-            onChange={handleAuthorInputChange}
-            value={newArticleAuthor}
+            onChange={handleFormData}
+            value={formData.author}
             className="form-control my-3"
             type="text"
+            name="author"
           />
-          <label htmlFor="status-select" className="form-label">
+          {/* <label htmlFor="status-select" className="form-label">
             Inserisci lo stato dell'articolo:
-          </label>
-          <select
+          </label> */}
+          {/* <select
             onChange={handleSelectChange}
-            value={newArticleStatus}
+            value={formData.status}
             id="status-select"
             className="form-select my-3"
+            name="status"
           >
             <option value="Draft">Draft</option>
             <option value="Published">Published</option>
-          </select>
+          </select> */}
           <button className="btn btn-primary my-3">Aggiungi articolo</button>
         </form>
 
