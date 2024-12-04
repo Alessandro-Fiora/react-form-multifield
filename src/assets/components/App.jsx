@@ -26,7 +26,7 @@ function App() {
       img: "https://placehold.co/600x400",
       author: "Alessandro Fiora",
       category: "CSS",
-      published: true,
+      published: false,
     },
     {
       title: "Articolo 3",
@@ -34,16 +34,19 @@ function App() {
       img: "https://placehold.co/600x400",
       author: "Alessandro Fiora",
       category: "JS",
-      published: true,
+      published: false,
     },
   ]);
 
   const [formData, setFormData] = useState(defaultFormData);
 
   const handleFormData = (e) => {
+    const newValue =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: newValue,
     });
   };
 
@@ -133,13 +136,29 @@ function App() {
             name="category"
             placeholder="Seleziona una categoria"
           >
+            <option>Seleziona una categoria</option>
             {categories.map((category) => (
               <option key={category} value={category}>
                 {category}
               </option>
             ))}
           </select>
-          <button className="btn btn-primary my-3">Aggiungi articolo</button>
+
+          <label htmlFor="published-input" className="form-label">
+            Vuoi pubblicare l'articolo?
+          </label>
+          <input
+            id="published-input"
+            onChange={handleFormData}
+            value={formData.published}
+            className="mx-3"
+            type="checkbox"
+            name="published"
+          />
+
+          <button className="d-block btn btn-primary my-3">
+            Aggiungi articolo
+          </button>
         </form>
 
         <div className="article-list-container">
@@ -171,6 +190,9 @@ function App() {
                           {article.category
                             ? "Categoria articolo: " + article.category
                             : ""}
+                        </h4>
+                        <h4 className="h6 fw-light">
+                          {article.published ? "Pubblicato" : "Bozza"}
                         </h4>
                       </div>
                       <div className="article-buttons">
