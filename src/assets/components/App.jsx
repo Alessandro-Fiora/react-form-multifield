@@ -2,27 +2,39 @@ import { useState } from "react";
 const defaultFormData = {
   title: "",
   content: "",
+  img: "",
   author: "",
   category: "",
   published: false,
 };
 
 function App() {
+  const categories = ["HTML", "CSS", "JS"];
+
   const [articles, setArticles] = useState([
     {
       title: "Articolo 1",
+      content: "Lorem ipsum dolor sit amet",
+      img: "https://placehold.co/600x400",
       author: "Alessandro Fiora",
-      status: "Draft",
+      category: "HTML",
+      published: true,
     },
     {
       title: "Articolo 2",
+      content: "Lorem ipsum dolor sit amet",
+      img: "https://placehold.co/600x400",
       author: "Alessandro Fiora",
-      status: "Published",
+      category: "CSS",
+      published: true,
     },
     {
       title: "Articolo 3",
+      content: "Lorem ipsum dolor sit amet",
+      img: "https://placehold.co/600x400",
       author: "Alessandro Fiora",
-      status: "Published",
+      category: "JS",
+      published: true,
     },
   ]);
 
@@ -42,8 +54,11 @@ function App() {
       ...articles,
       {
         title: formData.title,
+        content: formData.content,
+        img: formData.img,
         author: formData.author,
-        // status: newArticleStatus,
+        category: formData.category,
+        published: formData.published,
       },
     ];
     setArticles(newArticles);
@@ -83,19 +98,47 @@ function App() {
             type="text"
             name="author"
           />
-          {/* <label htmlFor="status-select" className="form-label">
-            Inserisci lo stato dell'articolo:
-          </label> */}
-          {/* <select
-            onChange={handleSelectChange}
-            value={formData.status}
-            id="status-select"
+
+          <label htmlFor="content-input" className="form-label">
+            Inserisci il contenuto dell'articolo:
+          </label>
+          <input
+            id="content-input"
+            onChange={handleFormData}
+            value={formData.content}
+            className="form-control my-3"
+            type="text"
+            name="content"
+          />
+
+          <label htmlFor="img-input" className="form-label">
+            Inserisci l'immagine dell'articolo:
+          </label>
+          <input
+            id="img-input"
+            onChange={handleFormData}
+            value={formData.img}
+            className="form-control my-3"
+            type="text"
+            name="img"
+          />
+
+          <label htmlFor="category-select" className="form-label">
+            Scegli la categoria dell'articolo:
+          </label>
+          <select
+            onChange={handleFormData}
+            id="category-select"
             className="form-select my-3"
-            name="status"
+            name="category"
+            placeholder="Seleziona una categoria"
           >
-            <option value="Draft">Draft</option>
-            <option value="Published">Published</option>
-          </select> */}
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
           <button className="btn btn-primary my-3">Aggiungi articolo</button>
         </form>
 
@@ -109,12 +152,24 @@ function App() {
                     <div className="d-flex">
                       <div className="article-info flex-grow-1">
                         <h3 className="h5">{article.title}</h3>
+                        <div className="img-container">
+                          <img
+                            src={article.img}
+                            alt=""
+                            className="img img-fluid"
+                          />
+                        </div>
                         <h4 className="h6 fw-normal">
                           {article.author ? "Autore: " + article.author : ""}
                         </h4>
                         <h4 className="h6 fw-light">
-                          {article.status
-                            ? "Stato articolo: " + article.status
+                          {article.content
+                            ? "Contenuto articolo: " + article.content
+                            : ""}
+                        </h4>
+                        <h4 className="h6 fw-light">
+                          {article.category
+                            ? "Categoria articolo: " + article.category
                             : ""}
                         </h4>
                       </div>
