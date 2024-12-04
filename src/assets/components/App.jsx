@@ -71,7 +71,7 @@ function App() {
 
   useEffect(() => {
     alert("Articolo in pubblicazione");
-  }, [articles]);
+  }, [formData.published]);
 
   const handleDeleteButtonClick = (index) => {
     const newArticles = [...articles];
