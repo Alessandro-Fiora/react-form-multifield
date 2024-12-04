@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Label from "./Label";
 const defaultFormData = {
   title: "",
@@ -68,6 +68,10 @@ function App() {
     setArticles(newArticles);
     setFormData(defaultFormData);
   };
+
+  useEffect(() => {
+    alert("Articolo in pubblicazione");
+  }, [articles]);
 
   const handleDeleteButtonClick = (index) => {
     const newArticles = [...articles];
@@ -152,7 +156,6 @@ function App() {
               id="category-select"
               className="form-select my-3"
               name="category"
-              placeholder="Seleziona una categoria"
             >
               <option>Seleziona una categoria</option>
               {categories.map((category) => (
@@ -190,12 +193,12 @@ function App() {
 
         <div className="article-list-container border-top">
           <h2 className="my-4">Lista articoli:</h2>
-          <div className="row row-cols-3">
+          <div className="row row-cols-3 g-3">
             {articles.map(
               (article, index) =>
                 article.title && (
                   <div className="col" key={index}>
-                    <div className="card p-3">
+                    <div className="card h-100 p-3">
                       <div className="article-info flex-grow-1">
                         <h3 className="h5">{article.title}</h3>
                         <div className="img-container mb-2">
@@ -208,13 +211,7 @@ function App() {
                           {article.content ? article.content : ""}
                         </h4>
 
-                        <Label>{article.category}</Label>
-
-                        {/* <h4 className="h6 fw-light">
-                          {article.category
-                            ? "Categoria articolo: " + article.category
-                            : ""}
-                        </h4> */}
+                        {article.category && <Label>{article.category}</Label>}
 
                         <h4 className="h6 fw-light mt-2">
                           {article.published
