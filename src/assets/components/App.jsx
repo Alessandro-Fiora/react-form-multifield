@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Label from "./Label";
 const defaultFormData = {
   title: "",
   content: "",
@@ -78,121 +79,147 @@ function App() {
     <>
       <div className="container p-5">
         <h1 className="mb-4">Aggiungi articoli</h1>
-        <form onSubmit={handleFormSubmit} className="my-3">
-          <label htmlFor="title-input" className="form-label">
-            Inserisci il titolo dell'articolo:
-          </label>
-          <input
-            id="title-input"
-            onChange={handleFormData}
-            value={formData.title}
-            className="form-control my-3"
-            type="text"
-            name="title"
-          />
-          <label htmlFor="author-input" className="form-label">
-            Inserisci l'autore dell'articolo:
-          </label>
-          <input
-            id="author-input"
-            onChange={handleFormData}
-            value={formData.author}
-            className="form-control my-3"
-            type="text"
-            name="author"
-          />
 
-          <label htmlFor="content-input" className="form-label">
-            Inserisci il contenuto dell'articolo:
-          </label>
-          <input
-            id="content-input"
-            onChange={handleFormData}
-            value={formData.content}
-            className="form-control my-3"
-            type="text"
-            name="content"
-          />
+        {/* FORM PER INSERIMENTO ARTICOLO */}
+        <form onSubmit={handleFormSubmit} className="row row-cols-3 my-3">
+          {/* INSERIMENTO TITOLO */}
+          <div className="col">
+            <label htmlFor="title-input" className="form-label">
+              Inserisci il titolo dell'articolo:
+            </label>
+            <input
+              id="title-input"
+              onChange={handleFormData}
+              value={formData.title}
+              className="form-control my-3"
+              type="text"
+              name="title"
+            />
+          </div>
 
-          <label htmlFor="img-input" className="form-label">
-            Inserisci l'immagine dell'articolo:
-          </label>
-          <input
-            id="img-input"
-            onChange={handleFormData}
-            value={formData.img}
-            className="form-control my-3"
-            type="text"
-            name="img"
-          />
+          {/* INSERIMENTO AUTORE */}
+          <div className="col">
+            <label htmlFor="author-input" className="form-label">
+              Inserisci l'autore dell'articolo:
+            </label>
+            <input
+              id="author-input"
+              onChange={handleFormData}
+              value={formData.author}
+              className="form-control my-3"
+              type="text"
+              name="author"
+            />
+          </div>
 
-          <label htmlFor="category-select" className="form-label">
-            Scegli la categoria dell'articolo:
-          </label>
-          <select
-            onChange={handleFormData}
-            id="category-select"
-            className="form-select my-3"
-            name="category"
-            placeholder="Seleziona una categoria"
-          >
-            <option>Seleziona una categoria</option>
-            {categories.map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+          {/* INSERIMENTO CONTENUTO */}
+          <div className="col">
+            <label htmlFor="content-input" className="form-label">
+              Inserisci il contenuto dell'articolo:
+            </label>
+            <input
+              id="content-input"
+              onChange={handleFormData}
+              value={formData.content}
+              className="form-control my-3"
+              type="text"
+              name="content"
+            />
+          </div>
 
-          <label htmlFor="published-input" className="form-label">
-            Vuoi pubblicare l'articolo?
-          </label>
-          <input
-            id="published-input"
-            onChange={handleFormData}
-            value={formData.published}
-            className="mx-3"
-            type="checkbox"
-            name="published"
-          />
+          {/* INSERIMENTO IMMAGINE */}
+          <div className="col">
+            <label htmlFor="img-input" className="form-label">
+              Inserisci l'immagine dell'articolo:
+            </label>
+            <input
+              id="img-input"
+              onChange={handleFormData}
+              value={formData.img}
+              className="form-control my-3"
+              type="text"
+              name="img"
+            />
+          </div>
 
-          <button className="d-block btn btn-primary my-3">
-            Aggiungi articolo
-          </button>
+          {/* INSERIMENTO CATEGORIA */}
+          <div className="col">
+            <label htmlFor="category-select" className="form-label">
+              Scegli la categoria dell'articolo:
+            </label>
+            <select
+              onChange={handleFormData}
+              id="category-select"
+              className="form-select my-3"
+              name="category"
+              placeholder="Seleziona una categoria"
+            >
+              <option>Seleziona una categoria</option>
+              {categories.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* CHECKBOX PUBBLICARE? */}
+          <div className="col">
+            <div className="p-5">
+              <label htmlFor="published-input" className="form-label">
+                Vuoi pubblicare l'articolo?
+              </label>
+              <input
+                id="published-input"
+                onChange={handleFormData}
+                value={formData.published}
+                className="mx-3"
+                type="checkbox"
+                name="published"
+              />
+            </div>
+          </div>
+
+          {/* BOTTONE INVIO FORM */}
+          <div className="col-12">
+            <button className="d-block btn btn-primary my-3">
+              Aggiungi articolo
+            </button>
+          </div>
         </form>
 
-        <div className="article-list-container">
-          <h2 className="my-3">Lista articoli:</h2>
-          <ul>
+        <div className="article-list-container border-top">
+          <h2 className="my-4">Lista articoli:</h2>
+          <div className="row row-cols-3">
             {articles.map(
               (article, index) =>
                 article.title && (
-                  <li key={index}>
-                    <div className="d-flex">
+                  <div className="col" key={index}>
+                    <div className="card p-3">
                       <div className="article-info flex-grow-1">
                         <h3 className="h5">{article.title}</h3>
-                        <div className="img-container">
-                          <img
-                            src={article.img}
-                            alt=""
-                            className="img img-fluid"
-                          />
+                        <div className="img-container mb-2">
+                          <img src={article.img} alt="" className="img-fluid" />
                         </div>
                         <h4 className="h6 fw-normal">
                           {article.author ? "Autore: " + article.author : ""}
                         </h4>
-                        <h4 className="h6 fw-light">
-                          {article.content
-                            ? "Contenuto articolo: " + article.content
-                            : ""}
+                        <h4 className="h6 fw-light mb-3">
+                          {article.content ? article.content : ""}
                         </h4>
-                        <h4 className="h6 fw-light">
+
+                        <Label>{article.category}</Label>
+
+                        {/* <h4 className="h6 fw-light">
                           {article.category
                             ? "Categoria articolo: " + article.category
                             : ""}
-                        </h4>
-                        <h4 className="h6 fw-light">
-                          {article.published ? "Pubblicato" : "Bozza"}
+                        </h4> */}
+
+                        <h4 className="h6 fw-light mt-2">
+                          {article.published
+                            ? "Stato di pubblicazione: Pubblicato"
+                            : "Stato di pubblicazione: Bozza"}
                         </h4>
                       </div>
                       <div className="article-buttons">
@@ -200,16 +227,16 @@ function App() {
                           onClick={() => {
                             handleDeleteButtonClick(index);
                           }}
-                          className="btn p-0 mx-3"
+                          className="btn p-0"
                         >
-                          <i className="mx-3 fa-solid fa-trash-can"></i>
+                          <i className=" fa-solid fa-trash-can"></i>
                         </button>
                       </div>
                     </div>
-                  </li>
+                  </div>
                 )
             )}
-          </ul>
+          </div>
         </div>
       </div>
     </>
