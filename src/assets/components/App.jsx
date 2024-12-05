@@ -70,7 +70,7 @@ function App() {
   };
 
   useEffect(() => {
-    alert("Articolo in pubblicazione");
+    alert("Modifica stato di pubblicazione");
   }, [formData.published]);
 
   const handleDeleteButtonClick = (index) => {
@@ -152,12 +152,13 @@ function App() {
               Scegli la categoria dell'articolo:
             </label>
             <select
+              value={formData.category}
               onChange={handleFormData}
               id="category-select"
               className="form-select my-3"
               name="category"
             >
-              <option>Seleziona una categoria</option>
+              <option value="">Seleziona una categoria</option>
               {categories.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -175,7 +176,7 @@ function App() {
               <input
                 id="published-input"
                 onChange={handleFormData}
-                value={formData.published}
+                checked={formData.published}
                 className="mx-3"
                 type="checkbox"
                 name="published"
